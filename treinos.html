@@ -58,6 +58,14 @@
     </div>
     <div id="lista"></div>
     <script>const treinos = [['15/08/2026', 'VO2 Máx', '8x400m'], ['22/08/2026', '5x1000m', '3:55/km'], ['29/08/2026', '3x2km', '4:05/km'], ['05/09/2026', '6x800m', '3:50/km'], ['12/09/2026', '2x4km', '4:05/km'], ['19/09/2026', '10x400m', '3:40/km'], ['26/09/2026', '6x1000m', '3:50/km'], ['03/10/2026', '3x3km', '4:00/km'], ['10/10/2026', '10km contínuos', '4:05/km'], ['17/10/2026', '4x2km', '3:55-4:00/km'], ['24/10/2026', 'Simulado 15km', 'Progressivo']]; function r() { let d = 0; lista.innerHTML = ''; treinos.forEach((t, i) => { let c = localStorage.getItem('t' + i) === '1'; if (c) d++; let e = document.createElement('div'); e.className = 'card' + (c ? ' done' : ''); e.innerHTML = `<label><input type=checkbox ${c ? 'checked' : ''} onchange='tg(${i})'> <b>${t[0]}</b><br>${t[1]} - ${t[2]}</label>`; lista.appendChild(e); }); let p = Math.round(d / treinos.length * 100); bar.style.width = p + '%'; bar.innerText = p + '%'; } function tg(i) { localStorage.setItem('t' + i, localStorage.getItem('t' + i) === '1' ? '0' : '1'); r() } r();</script>
+    <button onclick="voltarInicio()" class="btn">
+🏠 Voltar ao Início
+</button>
+<script>
+function voltarInicio() {
+window.location.href = "index.html";
+}
+</script>
 </body>
 
 </html>
