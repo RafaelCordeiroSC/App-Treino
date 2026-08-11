@@ -1,71 +1,152 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-
 <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width,initial-scale=1">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="default">
-    <meta name="theme-color" content="#1f4e78">
-    <title>Treino Meia Maratona</title>
-    <style>
-        body {
-            font-family: -apple-system, Arial, sans-serif;
-            background: #f3f6fa;
-            margin: 0;
-            padding: 16px
-        }
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#1f4e78">
+<title>Plano Meia Maratona</title>
 
-        h1 {
-            text-align: center;
-            color: #1f4e78
-        }
+<style>
+body{
+    font-family: Arial, sans-serif;
+    background:#f3f6fa;
+    margin:0;
+    padding:16px;
+}
 
-        .card {
-            background: #fff;
-            padding: 14px;
-            border-radius: 12px;
-            margin: 10px 0;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, .08)
-        }
+h1{
+    text-align:center;
+    color:#1f4e78;
+}
 
-        .done {
-            background: #d4edda
-        }
+.progress{
+    background:#ddd;
+    height:24px;
+    border-radius:12px;
+    overflow:hidden;
+    margin-bottom:20px;
+}
 
-        .progress {
-            background: #ddd;
-            height: 24px;
-            border-radius: 12px;
-            overflow: hidden
-        }
+.bar{
+    background:#28a745;
+    height:100%;
+    width:0%;
+    color:white;
+    text-align:center;
+    line-height:24px;
+    font-weight:bold;
+}
 
-        .bar {
-            background: #28a745;
-            height: 100%;
-            width: 0;
-            color: #fff;
-            text-align: center;
-            line-height: 24px
-        }
-    </style>
+.card{
+    background:white;
+    padding:15px;
+    border-radius:12px;
+    margin-bottom:10px;
+    box-shadow:0 2px 8px rgba(0,0,0,0.08);
+}
+
+.done{
+    background:#d4edda;
+}
+
+.btn-voltar{
+    width:100%;
+    padding:15px;
+    border:none;
+    border-radius:12px;
+    background:#1f4e78;
+    color:white;
+    font-size:16px;
+    cursor:pointer;
+    margin-top:20px;
+}
+
+.btn-voltar:hover{
+    background:#163b5d;
+}
+</style>
 </head>
 
 <body>
-    <h1>Plano Meia Maratona</h1>
-    <div class="progress">
-        <div id="bar" class="bar">0%</div>
-    </div>
-    <div id="lista"></div>
-    <script>const treinos = [['15/08/2026', 'VO2 Máx', '8x400m'], ['22/08/2026', '5x1000m', '3:55/km'], ['29/08/2026', '3x2km', '4:05/km'], ['05/09/2026', '6x800m', '3:50/km'], ['12/09/2026', '2x4km', '4:05/km'], ['19/09/2026', '10x400m', '3:40/km'], ['26/09/2026', '6x1000m', '3:50/km'], ['03/10/2026', '3x3km', '4:00/km'], ['10/10/2026', '10km contínuos', '4:05/km'], ['17/10/2026', '4x2km', '3:55-4:00/km'], ['24/10/2026', 'Simulado 15km', 'Progressivo']]; function r() { let d = 0; lista.innerHTML = ''; treinos.forEach((t, i) => { let c = localStorage.getItem('t' + i) === '1'; if (c) d++; let e = document.createElement('div'); e.className = 'card' + (c ? ' done' : ''); e.innerHTML = `<label><input type=checkbox ${c ? 'checked' : ''} onchange='tg(${i})'> <b>${t[0]}</b><br>${t[1]} - ${t[2]}</label>`; lista.appendChild(e); }); let p = Math.round(d / treinos.length * 100); bar.style.width = p + '%'; bar.innerText = p + '%'; } function tg(i) { localStorage.setItem('t' + i, localStorage.getItem('t' + i) === '1' ? '0' : '1'); r() } r();</script>
-    <button onclick="voltarInicio()" class="btn">
-🏠 Voltar ao Início
-</button>
-<script>
-function voltarInicio() {
-window.location.href = "index.html";
-}
-</script>
-</body>
 
+<h1>🏃 Plano Meia Maratona</h1>
+
+<div class="progress">
+    <div class="bar" id="bar">0%</div>
+</div>
+
+<div id="lista"></div>
+
+<button class="btn-voltar" onclick="window.location.hrefconst treinos = [
+    ["15/08/2026","VO2 Máx","8x400m"],
+    ["22/08/2026","5x1000m","3:55/km"],
+    ["29/08/2026","3x2km","4:05/km"],
+    ["05/09/2026","6x800m","3:50/km"],
+    ["12/09/2026","2x4km","4:05/km"],
+    ["19/09/2026","10x400m","3:40/km"],
+    ["26/09/2026","6x1000m","3:50/km"],
+    ["03/10/2026","3x3km","4:00/km"],
+    ["10/10/2026","10km contínuos","4:05/km"],
+    ["17/10/2026","4x2km","3:55 a 4:00/km"],
+    ["24/10/2026","Simulado 15km","Progressivo"]
+];
+
+function renderizar(){
+
+    let concluidos = 0;
+    const lista = document.getElementById("lista");
+
+    lista.innerHTML = "";
+
+    treinos.forEach((treino,index)=>{
+
+        const feito = localStorage.getItem("treino"+index) === "1";
+
+        if(feito){
+            concluidos++;
+        }
+
+        const card = document.createElement("div");
+        card.className = "card" + (feito ? " done" : "");
+
+        card.innerHTML = `
+            <label>
+                <input
+                    type="checkbox"
+                    ${feito ? "checked" : ""}
+                    onchange="alternarTreino(${index})">
+                <strong>${treino[0]}</strong><br>
+                ${treino[1]} - ${treino[2]}
+            </label>
+        `;
+
+        lista.appendChild(card);
+    });
+
+    const percentual = Math.round(
+        (concluidos / treinos.length) * 100
+    );
+
+    document.getElementById("bar").style.width = percentual + "%";
+    document.getElementById("bar").innerText = percentual + "%";
+}
+
+function alternarTreino(index){
+
+    const valor = localStorage.getItem("treino"+index);
+
+    if(valor === "1"){
+        localStorage.setItem("treino"+index,"0");
+    }else{
+        localStorage.setItem("treino"+index,"1");
+    }
+
+    renderizar();
+}
+
+renderizar();
+
+</script>
+
+</body>
 </html>
