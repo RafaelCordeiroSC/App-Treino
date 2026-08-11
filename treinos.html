@@ -77,7 +77,13 @@ h1{
 
 <div id="lista"></div>
 
-<button class="btn-voltar" onclick="window.location.hrefconst treinos = [
+index.html
+    🏠 Voltar ao Início
+</button>
+
+<script>
+
+const treinos = [
     ["15/08/2026","VO2 Máx","8x400m"],
     ["22/08/2026","5x1000m","3:55/km"],
     ["29/08/2026","3x2km","4:05/km"],
@@ -91,18 +97,18 @@ h1{
     ["24/10/2026","Simulado 15km","Progressivo"]
 ];
 
-function renderizar(){
+function renderizar() {
 
     let concluidos = 0;
     const lista = document.getElementById("lista");
 
     lista.innerHTML = "";
 
-    treinos.forEach((treino,index)=>{
+    treinos.forEach((treino, index) => {
 
-        const feito = localStorage.getItem("treino"+index) === "1";
+        const feito = localStorage.getItem("treino" + index) === "1";
 
-        if(feito){
+        if (feito) {
             concluidos++;
         }
 
@@ -131,14 +137,14 @@ function renderizar(){
     document.getElementById("bar").innerText = percentual + "%";
 }
 
-function alternarTreino(index){
+function alternarTreino(index) {
 
-    const valor = localStorage.getItem("treino"+index);
+    const valor = localStorage.getItem("treino" + index);
 
-    if(valor === "1"){
-        localStorage.setItem("treino"+index,"0");
-    }else{
-        localStorage.setItem("treino"+index,"1");
+    if (valor === "1") {
+        localStorage.setItem("treino" + index, "0");
+    } else {
+        localStorage.setItem("treino" + index, "1");
     }
 
     renderizar();
