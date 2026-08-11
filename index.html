@@ -38,7 +38,7 @@
         }
 
         .card {
-            background: white;
+            background: #fff;
             border-radius: 15px;
             padding: 20px;
             margin-bottom: 15px;
@@ -77,14 +77,13 @@
         .btn {
             flex: 1;
             padding: 15px;
-            width: 100%;
             border: none;
             border-radius: 12px;
             background: #0f62fe;
             color: white;
             font-size: 16px;
             cursor: pointer;
-            transition: 0.3s;
+            transition: .3s;
         }
 
         .btn:hover {
@@ -100,7 +99,7 @@
             bottom: 0;
             left: 0;
             width: 100%;
-            background: white;
+            background: #fff;
             display: flex;
             justify-content: space-around;
             padding: 15px;
@@ -129,39 +128,49 @@
 
         <div class="card">
             <h2>Próximo Treino</h2>
-            <p><strong>Intervalado 8x400m</strong></p>
-            <p>Hoje às 18:00</p>
+            <p id="proximoTreino">
+                <strong>Carregando...</strong>
+            </p>
         </div>
 
         <div class="card">
-            <h2>Resumo da Semana</h2>
+            <h2>Resumo do Plano</h2>
 
             <div class="stats">
+
                 <div class="stat">
-                    <h3>32</h3>
-                    <p>Km</p>
+                    <h3>11</h3>
+                    <p>Total</p>
                 </div>
 
                 <div class="stat">
-                    <h3>4</h3>
-                    <p>Treinos</p>
+                    <h3 id="treinosFeitos">0</h3>
+                    <p>Feitos</p>
                 </div>
 
                 <div class="stat">
-                    <h3>85%</h3>
+                    <h3 id="metaTreino">0%</h3>
                     <p>Meta</p>
                 </div>
+
             </div>
         </div>
 
         <div class="card">
             <h2>Objetivo</h2>
-            <p>Meia Maratona Sub 1h30</p>
+            <p>🏅 Meia Maratona Sub 1h30</p>
         </div>
-        
+
+        <div class="btn-container">
+
+            <button class="btn" onclick="iniciarTreino()">
+                ▶ Iniciar Treino
+            </button>
+
             <button class="btn" onclick="abrirTreinos()">
                 📋 Meus Treinos
             </button>
+
         </div>
 
     </div>
@@ -169,13 +178,81 @@
     <div class="footer-space"></div>
 
     <div class="menu">
+        <a href="index.html" class="active">🏠 Início</a>
         <a href="treinos.html">📋 Treinos</a>
     </div>
 
     <script>
+
+        const treinos = [
+            ["15/08/2026", "VO2 Máx", "8x400m"],
+            ["22/08/2026", "5x1000m", "3:55/km"],
+            ["29/08/2026", "3x2km", "4:05/km"],
+            ["05/09/2026", "6x800m", "3:50/km"],
+            ["12/09/2026", "2x4km", "4:05/km"],
+            ["19/09/2026", "10x400m", "3:40/km"],
+            ["26/09/2026", "6x1000m", "3:50/km"],
+            ["03/10/2026", "3x3km", "4:00/km"],
+            ["10/10/2026", "10km contínuos", "4:05/km"],
+            ["17/10/2026", "4x2km", "3:55 a 4:00/km"],
+            ["24/10/2026", "Simulado 15km", "Progressivo"]
+        ];
+
+        function atualizarDashboard() {
+
+            let concluidos = 0;
+            let proximoTreino = null;
+
+            treinos.forEach((treino, index) => {
+
+                const feito =
+                    localStorage.getItem("treino" + index) === "1";
+
+                if (feito) {
+                    concluidos++;
+                } else if (!proximoTreino) {
+                    proximoTreino = treino;
+                }
+
+            });
+
+            const percentual =
+                Math.round((concluidos / treinos.length) * 100);
+
+            document.getElementById("treinosFeitos").innerText =
+                concluidos;
+
+            document.getElementById("metaTreino").innerText =
+                percentual + "%";
+
+            if (proximoTreino) {
+
+                document.getElementById("proximoTreino").innerHTML = `
+                    <strong>${proximoTreino[1]}</strong><br>
+                    📅 ${proximoTreino[0]}<br>
+                    🎯 ${proximoTreino[2]}
+                `;
+
+            } else {
+
+                document.getElementById("proximoTreino").innerHTML = `
+                    <strong>✅ Plano concluído!</strong>
+                `;
+
+            }
+
+        }
+
+        function iniciarTreino() {
+            alert("Bons treinos! 💪");
+        }
+
         function abrirTreinos() {
             window.location.href = "treinos.html";
         }
+
+        atualizarDashboard();
+
     </script>
 
 </body>
