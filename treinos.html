@@ -111,8 +111,7 @@
 
             treinos.forEach((treino, index) => {
 
-                const feito =
-                    localStorage.getItem("treino" + index) === "1";
+                const feito = localStorage.getItem("treino" + index) === "1";
 
                 if (feito) {
                     concluidos++;
